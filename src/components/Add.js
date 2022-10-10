@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
-
+import React, {useState } from 'react'
 import Swal from 'sweetalert2';
 
+// this is the contact add Component 
 function Add({ contacts, setContact, setIsAdding}) {
 
+    // setting the contacts details like user name email ...
     const [name, setName] = useState('');
     const [username, setUserName] = useState('');
     const [email, setEmail] = useState('');
@@ -12,8 +13,12 @@ function Add({ contacts, setContact, setIsAdding}) {
     const [website, setWebsite] = useState('');
     const [company, setCompany] = useState('');
 
+
+    // function to handle the click to add contact
     const handleAdd = e => {
+        // this is the function to not to referse page 
         e.preventDefault();
+        // show an alert is delails not entered 
         if (!name || !phone || !username || !email || !address || !website  || !company) {
             return Swal.fire({
                 icon: 'error',
@@ -23,7 +28,9 @@ function Add({ contacts, setContact, setIsAdding}) {
             });
         }
 
+        // id to all the  contacts
         const id = contacts.length + 1;
+        // setting the new contact
         const newcontact = {
             id,
             name,
@@ -38,10 +45,13 @@ function Add({ contacts, setContact, setIsAdding}) {
                 name:company
             }
         }
+        // putting the data in contacts
         contacts.push(newcontact);
         setContact(contacts);
+        // showing the contacts list page by making the IsAdding false 
         setIsAdding(false);
 
+        // showing alert for successfully adding contact
         Swal.fire({
             icon: 'success',
             title: 'Added!',
@@ -54,9 +64,11 @@ function Add({ contacts, setContact, setIsAdding}) {
 
   return (
     <div className="small-container">
+
+        {/* form to add contact details */}
             <form onSubmit={handleAdd}>
                 <h1>Add Contact</h1>
-
+                {/* name field */}
                 <label htmlFor="name"> Name</label>
                 <input
                     id="name"
@@ -65,6 +77,7 @@ function Add({ contacts, setContact, setIsAdding}) {
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
+                {/* username field */}
                 <label htmlFor="username">Username</label>
                 <input
                     id="username"
@@ -73,6 +86,7 @@ function Add({ contacts, setContact, setIsAdding}) {
                     value={username}
                     onChange={e => setUserName(e.target.value)}
                 />
+                {/* email field  */}
                 <label htmlFor="email">Email</label>
                 <input
                     id="email"
@@ -81,6 +95,7 @@ function Add({ contacts, setContact, setIsAdding}) {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
+                {/* address field  */}
                 <label htmlFor="address">Address</label>
                 <input
                     id="address"
@@ -89,6 +104,7 @@ function Add({ contacts, setContact, setIsAdding}) {
                     value={address}
                     onChange={e => setAddress(e.target.value)}
                 />
+                {/* phone number field */}
                 <label htmlFor="phone">Phone</label>
                 <input
                     id="phone"
@@ -97,6 +113,7 @@ function Add({ contacts, setContact, setIsAdding}) {
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                 />
+                {/* website link  */}
                 <label htmlFor="website">Website</label>
                 <input
                     id="website"
@@ -105,6 +122,7 @@ function Add({ contacts, setContact, setIsAdding}) {
                     value={website}
                     onChange={e => setWebsite(e.target.value)}
                 />
+                {/* company name field */}
                 <label htmlFor="company">Company</label>
                 <input
                     id="company"
@@ -113,6 +131,8 @@ function Add({ contacts, setContact, setIsAdding}) {
                     value={company}
                     onChange={e => setCompany(e.target.value)}
                 />
+
+                {/* button to submit the form */}
                 <div style={{ marginTop: '30px' }}>
                     <input type="submit" value="Add" />
                     <input

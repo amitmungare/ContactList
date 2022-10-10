@@ -1,22 +1,30 @@
 import React, { useState } from 'react'
 import Swal from 'sweetalert2';
 
+
+// this  is the function to edit the details for the contact
 function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
 
+    // id of the contact list 
     const id = selectedContact.id;
 
+    // address and company name for the user 
     const address  = selectedContact.address.street
     const company = selectedContact.company.name
 
+    // using state to manage all the data 
     const [name, setName] = useState(selectedContact.name);
     const [username, setUserName] = useState(selectedContact.username);
     const [email, setEmail] = useState(selectedContact.email);
     const [phone, setPhone] = useState(selectedContact.phone);
     const [website, setWebsite] = useState(selectedContact.website);
 
+    // update function 
     const handleUpdate = e => {
+        // to prevent refersh 
         e.preventDefault();
 
+        // if any field is not entered the show alert 
         if (!name || !phone || !username || !email || !address || !website  || !company) {
             return Swal.fire({
                 icon: 'error',
@@ -26,6 +34,7 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
             });
         }
 
+        // getting the data in object 
         const contact = {
             id,
             name,
@@ -41,6 +50,7 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
             }
         };
 
+        // if the id equal to the contact id update that contact 
         for (let i = 0; i < contacts.length; i++) {
             if (contacts[i].id === id) {
                 contacts.splice(i, 1, contact);
@@ -48,9 +58,11 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
             }
         }
 
+        // state to set data 
         setContact(contacts);
         setIsEditing(false);
 
+        // success alert to show update done successfully
         Swal.fire({
             icon: 'success',
             title: 'Updated!',
@@ -62,8 +74,11 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
 
     return (
         <div className="small-container">
+            {/* form to update the data  */}
             <form onSubmit={handleUpdate}>
                 <h1>Edit contact</h1>
+
+                {/* name field */}
                 <label htmlFor="name"> Name</label>
                 <input
                     id="name"
@@ -72,6 +87,7 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
                     value={name}
                     onChange={e => setName(e.target.value)}
                 />
+                {/* username field */}
                 <label htmlFor="username">Username</label>
                 <input
                     id="username"
@@ -80,6 +96,7 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
                     value={username}
                     onChange={e => setUserName(e.target.value)}
                 />
+                 {/* email field  */}
                 <label htmlFor="email">Email</label>
                 <input
                     id="email"
@@ -88,6 +105,7 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                 />
+                {/* phone number field */}
                 <label htmlFor="phone">Phone</label>
                 <input
                     id="phone"
@@ -96,6 +114,7 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
                     value={phone}
                     onChange={e => setPhone(e.target.value)}
                 />
+                {/* website link  */}
                 <label htmlFor="website">Website</label>
                 <input
                     id="website"
@@ -104,6 +123,7 @@ function Edit({ contacts, selectedContact, setContact, setIsEditing }) {
                     value={website}
                     onChange={e => setWebsite(e.target.value)}
                 />
+                {/* button to submit the form */}
                 <div style={{ marginTop: '30px' }}>
                     <input type="submit" value="Update" />
                     <input

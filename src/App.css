@@ -2,15 +2,16 @@
     margin: 40px;
     max-width: 100%;
 }
-
+/* setting the width and height of the table  */
 .contain-table{
     width: 100%;
     height: 100%;
 }
-
+/* setting color for edit button  */
 .editbtn{
     color:rgb(5, 205, 138);
 }
+/* setting color for delete button  */
 .deletebtn{
     color: red;
 }
